@@ -9,11 +9,6 @@
 </div>
 
 <style>
-	/* .container {
-		grid-column-start: 6;
-		grid-column-end: 9;
-	} */
-
 	.main {
 		display: flex;
 		flex-direction: column;
