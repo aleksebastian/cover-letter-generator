@@ -6,6 +6,7 @@
 	let transform = '-180deg';
 
 	const handleClick = () => {
+		// if ($fields.length) {
 		if (hidden) {
 			transform = '-180deg';
 		} else {
@@ -13,20 +14,23 @@
 		}
 		hidden = !hidden;
 	};
+	// };
 </script>
 
 <div class="container">
 	<div class="main">
 		<div class="header">
-			<h2 class="section-text">Fields</h2>
+			<h2 on:click={handleClick} class="section-text">Fields to replace</h2>
 			<div class="arrow-container">
 				<span on:click={handleClick} class="arrow" style="transform: rotateZ({transform})" />
 			</div>
 		</div>
 		{#if !hidden}
-			{#each $fields as field, i}
-				<Field {field} {i} />
-			{/each}
+			<div class="fields">
+				{#each $fields as field, i}
+					<Field {field} {i} />
+				{/each}
+			</div>
 		{/if}
 	</div>
 </div>
@@ -49,6 +53,7 @@
 
 	.section-text {
 		padding: 1rem;
+		cursor: pointer;
 	}
 
 	.arrow-container {
@@ -64,5 +69,9 @@
 		border-right: 3px solid white;
 		cursor: pointer;
 		transition: all 300ms;
+	}
+
+	.fields {
+		overflow: scroll;
 	}
 </style>
