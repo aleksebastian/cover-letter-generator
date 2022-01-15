@@ -76,3 +76,7 @@ select {
 body {
 	background-color: rgb(44, 48, 54);
 }
+
+button {
+	cursor: pointer;
+}
