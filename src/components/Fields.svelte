@@ -6,16 +6,22 @@
 		let regexExp = /\{([^{}]+)\}/g;
 		let matchAll = $letter.matchAll(regexExp);
 		let newFields = [];
-		// let fieldNames = [];
+		let updatedNames = [];
+
 		for (const match of matchAll) {
 			const field = match[1];
 			if (!$fieldNames.includes(field)) {
-				let newField = { name: field };
+				const newField = { name: field };
 				newFields.push(newField);
 				fieldNames.update((f) => [...f, field]);
 			}
+			updatedNames.push(field);
 		}
-		fields.update((fields) => [...fields, ...newFields]);
+		let updatedFields = $fields.filter((field) => updatedNames.includes(field.name));
+		let updatedFieldNames = $fieldNames.filter((fieldName) => updatedNames.includes(fieldName));
+
+		fieldNames.update((names) => updatedFieldNames);
+		fields.update((fields) => [...updatedFields, ...newFields]);
 	};
 </script>
 
@@ -30,7 +36,14 @@
 </div>
 
 <style>
+	.container {
+		grid-column-start: 6;
+		grid-column-end: 9;
+	}
+
 	.main {
+		display: flex;
+		flex-direction: column;
 		padding: 0 1rem 1rem 1rem;
 		background-color: #222831;
 		border-radius: 20px;
@@ -42,8 +55,7 @@
 	}
 
 	button {
-		margin: 1rem;
-		border-radius: 10px;
-		border: 1px solid transparent;
+		width: 90%;
+		margin: 0.6rem auto;
 	}
 </style>
