@@ -1,11 +1,13 @@
 <script lang="ts">
+	import { fade } from 'svelte/transition';
 	import { jsPDF } from 'jspdf';
 	import { letter, generatedLetter, fields, fieldNames } from '../store';
-	import { createEventDispatcher } from 'svelte';
-	const dispatch = createEventDispatcher();
 
 	let text: string = '';
 	let previousMatchAllResult: RegExpMatchArray[];
+	let showCopyConfirm: boolean = false;
+	let unableToCopy: boolean = false;
+	let missingReplacement: boolean = false;
 
 	const handleInput = () => {
 		letter.update((t) => text);
@@ -38,16 +40,41 @@
 		previousMatchAllResult = newMatchAll;
 	};
 
-	const handleClick = (request: string) => {
+	const handleClick = async (request: string) => {
 		let regexExp = /\{([^{}]+)\}/g;
 		let newLetter = $letter;
 		for (const field of $fields) {
-			newLetter = newLetter.replaceAll(`{${field.name}}`, field.replacement);
+			if (!field.replacement) {
+				missingReplacement = true;
+				setTimeout(() => {
+					missingReplacement = false;
+				}, 3000);
+				return;
+			} else {
+				newLetter = newLetter.replaceAll(`{${field.name}}`, field.replacement);
+			}
 		}
 		generatedLetter.update((letter) => newLetter);
-		if (request === 'text') {
-			navigator.clipboard.writeText(newLetter);
-		} else if (request === 'pdf') {
+		if (request === 'text' && newLetter.length) {
+			navigator.clipboard.writeText(newLetter).then(
+				() => {
+					showCopyConfirm = true;
+					setTimeout(() => {
+						showCopyConfirm = false;
+					}, 1500);
+				},
+				() => {
+					unableToCopy = true;
+					setTimeout(() => {
+						unableToCopy = false;
+					}, 1500);
+				}
+			);
+
+			return;
+		}
+
+		if (request === 'pdf' && newLetter.length) {
 			const lMargin = 25;
 			const rMargin = 25;
 			const pdfInMM = 210;
@@ -67,6 +94,17 @@
 	<div class="buttons">
 		<button on:click={() => handleClick('pdf')}>Download generated PDF</button>
 		<button on:click={() => handleClick('text')}>Copy generated text</button>
+		{#if showCopyConfirm}
+			<p transition:fade={{ delay: 150, duration: 150 }} class="copy-ok">&#10003; Copied</p>
+		{:else if unableToCopy}
+			<p transition:fade={{ delay: 150, duration: 150 }} class="missing-replacement">
+				&#10060; Unable to copy text
+			</p>
+		{:else if missingReplacement}
+			<p transition:fade={{ delay: 150, duration: 150 }} class="missing-replacement">
+				&#10060; At least one replacement is missing. Please check your fields.
+			</p>
+		{/if}
 	</div>
 </div>
 
@@ -79,7 +117,7 @@
 	textarea {
 		width: 100%;
 		min-height: 450px;
-		height: 75vh;
+		height: 70vh;
 		max-height: 800px;
 		background-color: #f8f8f8;
 		font-weight: 300;
@@ -88,7 +126,22 @@
 
 	.buttons {
 		display: flex;
+		flex-wrap: wrap;
 		gap: 1rem;
 		margin-top: 0.5rem;
+	}
+
+	.copy-ok {
+		color: rgb(0, 221, 0);
+	}
+
+	.missing-replacement {
+		color: red;
+	}
+
+	@media screen and (max-width: 1024px) {
+		button {
+			flex-basis: 100%;
+		}
 	}
 </style>
