@@ -1,10 +1,39 @@
+<script lang="ts">
+	import Modal from './Modal.svelte';
+	import About from './About.svelte';
+	import Instructions from './Instructions.svelte';
+
+	let aboutHidden: boolean = true;
+	let instructionsHidden: boolean = true;
+
+	const handleClick = (section) => {
+		if (section === 'instructions') {
+			instructionsHidden = false;
+		}
+		if (section === 'about') {
+			aboutHidden = false;
+		}
+	};
+
+	const closeModal = () => {
+		aboutHidden = true;
+		instructionsHidden = true;
+	};
+</script>
+
 <nav>
 	<p class="app-name">Cover Letter Generator</p>
 	<div class="links">
-		<p>Instructions</p>
-		<p>About</p>
+		<p on:click={() => handleClick('instructions')}>Instructions</p>
+		<p on:click={() => handleClick('about')}>About</p>
 	</div>
 </nav>
+{#if !aboutHidden}
+	<Modal component={About} {closeModal} />
+{/if}
+{#if !instructionsHidden}
+	<Modal component={Instructions} {closeModal} />
+{/if}
 
 <style>
 	nav {
@@ -13,7 +42,7 @@
 		justify-content: space-between;
 		align-items: center;
 		color: white;
-		padding: 2rem;
+		padding: 2rem 2rem 1rem 2rem;
 		font-weight: 300;
 	}
 
