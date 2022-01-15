@@ -17,15 +17,20 @@
 	}
 
 	p {
-		align-items: flex-end;
+		/* align-items: flex-end; */
 	}
 
 	.app-name {
 		font-size: 1.5rem;
+		cursor: default;
 	}
 
 	.links {
 		display: flex;
 		gap: 2rem;
+	}
+
+	.links p {
+		cursor: pointer;
 	}
 </style>
