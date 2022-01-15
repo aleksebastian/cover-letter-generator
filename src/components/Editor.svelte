@@ -54,11 +54,12 @@
 
 	textarea {
 		width: 100%;
-		min-width: 600px;
 		min-height: 450px;
 		height: 75vh;
 		max-height: 800px;
 		background-color: #f8f8f8;
+		font-weight: 300;
+		resize: vertical;
 	}
 
 	.buttons {

@@ -36,10 +36,10 @@
 </div>
 
 <style>
-	.container {
+	/* .container {
 		grid-column-start: 6;
 		grid-column-end: 9;
-	}
+	} */
 
 	.main {
 		display: flex;
@@ -48,6 +48,7 @@
 		background-color: #222831;
 		border-radius: 20px;
 		color: white;
+		max-height: 800px;
 	}
 
 	.section-text {
