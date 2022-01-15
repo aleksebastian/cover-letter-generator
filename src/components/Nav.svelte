@@ -30,4 +30,10 @@
 	.links p {
 		cursor: pointer;
 	}
+
+	@media screen and (max-width: 1024px) {
+		.links {
+			gap: 1rem;
+		}
+	}
 </style>
