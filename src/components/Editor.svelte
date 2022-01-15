@@ -1,11 +1,41 @@
 <script lang="ts">
 	import { jsPDF } from 'jspdf';
-	import { letter, generatedLetter, fields } from '../store';
+	import { letter, generatedLetter, fields, fieldNames } from '../store';
+	import { createEventDispatcher } from 'svelte';
+	const dispatch = createEventDispatcher();
 
 	let text: string = '';
+	let previousMatchAllResult: RegExpMatchArray[];
 
-	const handleChange = () => {
+	const handleInput = () => {
 		letter.update((t) => text);
+		let regexExp = /\{([^{}]+)\}/g;
+		let newMatchAll = [...text.matchAll(regexExp)];
+		if (
+			(previousMatchAllResult &&
+				JSON.stringify(previousMatchAllResult) !== JSON.stringify(newMatchAll)) ||
+			(!previousMatchAllResult && newMatchAll.length)
+		) {
+			let newFields = [];
+			let updatedNames = [];
+
+			for (const match of newMatchAll) {
+				const currentFieldName = match[1];
+				if (!$fieldNames.includes(currentFieldName)) {
+					const newField = { name: currentFieldName };
+					newFields.push(newField);
+					fieldNames.update((f) => [...f, currentFieldName]);
+				}
+				updatedNames.push(currentFieldName);
+			}
+			let updatedFields = $fields.filter((field) => updatedNames.includes(field.name));
+			let updatedFieldNames = $fieldNames.filter((fieldName) => updatedNames.includes(fieldName));
+
+			fieldNames.update((names) => updatedFieldNames);
+			fields.update((fields) => [...updatedFields, ...newFields]);
+		}
+
+		previousMatchAllResult = newMatchAll;
 	};
 
 	const handleClick = (request: string) => {
@@ -32,13 +62,7 @@
 
 <div class="container">
 	<main>
-		<textarea
-			id="text"
-			name="letter"
-			spellcheck="true"
-			bind:value={text}
-			on:change={handleChange}
-		/>
+		<textarea id="text" name="letter" spellcheck="true" bind:value={text} on:input={handleInput} />
 	</main>
 	<div class="buttons">
 		<button on:click={() => handleClick('pdf')}>Download generated PDF</button>
@@ -64,6 +88,7 @@
 
 	.buttons {
 		display: flex;
-		gap: 1.5rem;
+		gap: 1rem;
+		margin-top: 0.5rem;
 	}
 </style>

@@ -1,46 +1,37 @@
 <script lang="ts">
 	import Field from './Field.svelte';
-	import { letter, fields, fieldNames } from '../store';
+	import { fields } from '../store';
+
+	let hidden = false;
+	let transform = '-180deg';
 
 	const handleClick = () => {
-		let regexExp = /\{([^{}]+)\}/g;
-		let matchAll = $letter.matchAll(regexExp);
-		let newFields = [];
-		let updatedNames = [];
-
-		for (const match of matchAll) {
-			const field = match[1];
-			if (!$fieldNames.includes(field)) {
-				const newField = { name: field };
-				newFields.push(newField);
-				fieldNames.update((f) => [...f, field]);
-			}
-			updatedNames.push(field);
+		if (hidden) {
+			transform = '-180deg';
+		} else {
+			transform = '0deg';
 		}
-		let updatedFields = $fields.filter((field) => updatedNames.includes(field.name));
-		let updatedFieldNames = $fieldNames.filter((fieldName) => updatedNames.includes(fieldName));
-
-		fieldNames.update((names) => updatedFieldNames);
-		fields.update((fields) => [...updatedFields, ...newFields]);
+		hidden = !hidden;
 	};
 </script>
 
 <div class="container">
 	<div class="main">
-		<h2 class="section-text">Fields</h2>
-		{#each $fields as field, i}
-			<Field {field} {i} />
-		{/each}
-		<button class="button" on:click={handleClick}>Generate Fields</button>
+		<div class="header">
+			<h2 class="section-text">Fields</h2>
+			<div class="arrow-container">
+				<span on:click={handleClick} class="arrow" style="transform: rotateZ({transform})" />
+			</div>
+		</div>
+		{#if !hidden}
+			{#each $fields as field, i}
+				<Field {field} {i} />
+			{/each}
+		{/if}
 	</div>
 </div>
 
 <style>
-	/* .container {
-		grid-column-start: 6;
-		grid-column-end: 9;
-	} */
-
 	.main {
 		display: flex;
 		flex-direction: column;
@@ -51,12 +42,27 @@
 		max-height: 800px;
 	}
 
+	.header {
+		display: flex;
+		justify-content: space-between;
+	}
+
 	.section-text {
 		padding: 1rem;
 	}
 
-	button {
-		width: 90%;
-		margin: 0.6rem auto;
+	.arrow-container {
+		transform: rotate(-45deg);
+	}
+
+	.arrow {
+		display: inline-block;
+		margin: 1.7rem 1rem 0 0;
+		width: 15px;
+		height: 15px;
+		border-top: 3px solid white;
+		border-right: 3px solid white;
+		cursor: pointer;
+		transition: all 300ms;
 	}
 </style>
