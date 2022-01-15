@@ -36,6 +36,7 @@
 			class="field-text"
 			name="company"
 			rows="1"
+			value={field.replacement ? field.replacement : ''}
 			bind:clientHeight={textAreaHeight}
 			on:change={handleChange}
 		/>
