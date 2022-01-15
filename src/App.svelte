@@ -20,7 +20,7 @@
 	.container {
 		display: grid;
 		grid-template-columns: repeat(8, 1fr);
-		padding: 2rem;
+		padding: 1rem 2rem 2rem 2rem;
 		gap: 2rem;
 	}
 
@@ -30,5 +30,12 @@
 		display: flex;
 		flex-direction: column;
 		gap: 2rem;
+	}
+
+	@media screen and (max-width: 1024px) {
+		.container {
+			display: flex;
+			flex-direction: column;
+		}
 	}
 </style>
