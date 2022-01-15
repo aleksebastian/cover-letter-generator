@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { slide } from 'svelte/transition';
+	import { quintOut } from 'svelte/easing';
 	import { fields } from '../store';
 
 	type fieldProps = {
@@ -22,7 +24,11 @@
 	};
 </script>
 
-<div class="container" style="height:{textAreaHeight}">
+<div
+	transition:slide={{ delay: 250, duration: 300, easing: quintOut }}
+	class="container"
+	style="height:{textAreaHeight}"
+>
 	<div class="input">
 		<label for="company">{field.name}</label>
 		<textarea
