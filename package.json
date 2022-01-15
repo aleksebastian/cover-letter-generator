@@ -2,16 +2,21 @@
 	"name": "svelte-app",
 	"version": "1.0.0",
 	"private": true,
+	"type": "module",
 	"scripts": {
 		"build": "rollup -c",
 		"dev": "rollup -c -w",
 		"start": "sirv public --no-clear --host",
+		"vite:dev": "vite",
+		"vite:build": "vite build",
+		"vite:preview": "vite preview",
 		"check": "svelte-check --tsconfig ./tsconfig.json"
 	},
 	"devDependencies": {
 		"@rollup/plugin-commonjs": "^17.0.0",
 		"@rollup/plugin-node-resolve": "^11.0.0",
 		"@rollup/plugin-typescript": "^8.0.0",
+		"@sveltejs/vite-plugin-svelte": "^1.0.0-next.34",
 		"@tsconfig/svelte": "^2.0.0",
 		"prettier": "^2.5.1",
 		"prettier-plugin-svelte": "^2.6.0",
@@ -21,10 +26,11 @@
 		"rollup-plugin-svelte": "^7.0.0",
 		"rollup-plugin-terser": "^7.0.0",
 		"svelte": "^3.0.0",
-		"svelte-check": "^2.0.0",
-		"svelte-preprocess": "^4.0.0",
-		"tslib": "^2.0.0",
-		"typescript": "^4.0.0"
+		"svelte-check": "^2.2.7",
+		"svelte-preprocess": "^4.9.8",
+		"tslib": "^2.3.1",
+		"typescript": "^4.4.4",
+		"vite": "^2.7.12"
 	},
 	"dependencies": {
 		"jspdf": "^2.5.0",
