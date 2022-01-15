@@ -75,8 +75,10 @@ select {
 
 body {
 	background-color: rgb(44, 48, 54);
+	font-family: 'Inter', sans-serif;
 }
 
 button {
 	cursor: pointer;
+	font-weight: 300;
 }
