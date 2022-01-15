@@ -14,10 +14,7 @@
 		align-items: center;
 		color: white;
 		padding: 2rem;
-	}
-
-	p {
-		/* align-items: flex-end; */
+		font-weight: 300;
 	}
 
 	.app-name {
