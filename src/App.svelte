@@ -13,7 +13,7 @@
 <style>
 	.container {
 		display: grid;
-		grid-template-columns: repeat(2, 1fr);
+		grid-template-columns: repeat(8, 1fr);
 		padding: 2rem;
 		gap: 2rem;
 	}
