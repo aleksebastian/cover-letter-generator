@@ -8,7 +8,7 @@ If this project has helped you through your cover letter writting journey, feel 
 
 ![Site mockup](https://raw.githubusercontent.com/aleksebastian/cover-letter-generator/main/mockup.png)
 
-#### Check out the live site at [vercel.cover-letter-generator.com](https://vercel.cover-letter-generator.com)
+#### Check out the live site at [cover-letter-generator-puce.vercel.app](https://cover-letter-generator-puce.vercel.app)
 
 ## Development set-up
 
