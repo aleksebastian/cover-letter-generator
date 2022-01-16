@@ -5,3 +5,5 @@ export const fieldNames = writable([]);
 
 export const letter = writable('');
 export const generatedLetter = writable('');
+
+export const scrollable = writable(true);
