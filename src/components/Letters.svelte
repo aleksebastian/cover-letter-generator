@@ -2,6 +2,8 @@
 	import { slide } from 'svelte/transition';
 	import { quintOut } from 'svelte/easing';
 
+	import Letter from './Letter.svelte';
+
 	let hidden = false;
 	let transform = '-180deg';
 
@@ -12,6 +14,13 @@
 			transform = '0deg';
 		}
 		hidden = !hidden;
+	};
+
+	const MockLetterData = {
+		name: 'my-cover-letter-name',
+		details:
+			'This section is a work in progress. Relevant letter details would go here. Click the open letter button to see a formatted letter example',
+		text: 'I came across your company through {job board}. I’m excited at the prospect of joining {company} as a {role}. I feel that the job description aligns well with my strengths in technologies as I am very comfortable utilizing the {stack acronym} stack.'
 	};
 </script>
 
@@ -24,8 +33,11 @@
 			</div>
 		</div>
 		{#if !hidden}
-			<button transition:slide={{ delay: 250, duration: 300, easing: quintOut }} class="button"
-				>Get cover letters</button
+			<Letter currentLetter={MockLetterData} />
+			<button
+				disabled={true}
+				transition:slide={{ delay: 250, duration: 300, easing: quintOut }}
+				class="button">Get cover letters</button
 			>
 		{/if}
 	</div>
