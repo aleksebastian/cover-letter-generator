@@ -3,8 +3,17 @@
 	import Editor from './components/Editor.svelte';
 	import Letters from './components/Letters.svelte';
 	import Fields from './components/Fields.svelte';
+	import { scrollable } from './store';
 
-	import { stringToHash } from './utils';
+	$: $scrollable, toggleScrollable();
+
+	const toggleScrollable = () => {
+		if ($scrollable) {
+			window.document.body.style.overflow = null;
+		} else {
+			window.document.body.style.overflow = 'hidden';
+		}
+	};
 </script>
 
 <Nav />
