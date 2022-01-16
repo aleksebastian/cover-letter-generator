@@ -92,8 +92,12 @@
 		<textarea id="text" name="letter" spellcheck="true" bind:value={$letter} />
 	</main>
 	<div class="buttons">
-		<button on:click={() => handleClick('pdf')}>Download generated PDF</button>
-		<button on:click={() => handleClick('text')}>Copy generated text</button>
+		<button disabled={!$letter.length} on:click={() => handleClick('pdf')}
+			>Download generated PDF</button
+		>
+		<button disabled={!$letter.length} on:click={() => handleClick('text')}
+			>Copy generated text</button
+		>
 		{#if showCopyConfirm}
 			<p transition:fade={{ delay: 150, duration: 150 }} class="copy-ok">&#10003; Copied</p>
 		{:else if unableToCopy}

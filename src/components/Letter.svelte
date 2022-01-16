@@ -64,21 +64,24 @@
 	}
 
 	.labels {
-		flex-basis: 75%;
+		flex-basis: 65%;
 	}
 
 	.input {
 		padding: 1rem;
+		gap: 5%;
 		display: flex;
 		justify-content: space-between;
 	}
 
 	.details {
 		font-size: 0.9rem;
+		font-weight: 300;
 	}
 
 	.button-container {
 		display: flex;
 		align-items: center;
+		flex-basis: 30%;
 	}
 </style>

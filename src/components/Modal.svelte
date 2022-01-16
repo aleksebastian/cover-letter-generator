@@ -43,6 +43,7 @@
 		cursor: pointer;
 		/* padding: 0.5rem; */
 		color: white;
+		-webkit-tap-highlight-color: transparent;
 	}
 
 	@media screen and (max-width: 1280px) {
