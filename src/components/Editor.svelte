@@ -3,25 +3,25 @@
 	import { jsPDF } from 'jspdf';
 	import { letter, generatedLetter, fields, fieldNames } from '../store';
 
-	let text: string = '';
-	let previousMatchAllResult: RegExpMatchArray[];
+	let memoMatchAllResult: RegExpMatchArray[];
 	let showCopyConfirm: boolean = false;
 	let unableToCopy: boolean = false;
 	let missingReplacement: boolean = false;
 
-	const handleInput = () => {
-		letter.update((t) => text);
+	$: $letter, handleLetterUpdate();
+
+	const handleLetterUpdate = () => {
 		let regexExp = /\{([^{}]+)\}/g;
-		let newMatchAll = [...text.matchAll(regexExp)];
+		let newMatchAllResult = [...$letter.matchAll(regexExp)];
 		if (
-			(previousMatchAllResult &&
-				JSON.stringify(previousMatchAllResult) !== JSON.stringify(newMatchAll)) ||
-			(!previousMatchAllResult && newMatchAll.length)
+			(memoMatchAllResult &&
+				JSON.stringify(memoMatchAllResult) !== JSON.stringify(newMatchAllResult)) ||
+			(!memoMatchAllResult && newMatchAllResult.length)
 		) {
 			let newFields = [];
 			let updatedNames = [];
 
-			for (const match of newMatchAll) {
+			for (const match of newMatchAllResult) {
 				const currentFieldName = match[1];
 				if (!$fieldNames.includes(currentFieldName)) {
 					const newField = { name: currentFieldName };
@@ -37,7 +37,7 @@
 			fields.update((fields) => [...updatedFields, ...newFields]);
 		}
 
-		previousMatchAllResult = newMatchAll;
+		memoMatchAllResult = newMatchAllResult;
 	};
 
 	const handleClick = async (request: string) => {
@@ -89,7 +89,7 @@
 
 <div class="container">
 	<main>
-		<textarea id="text" name="letter" spellcheck="true" bind:value={text} on:input={handleInput} />
+		<textarea id="text" name="letter" spellcheck="true" bind:value={$letter} />
 	</main>
 	<div class="buttons">
 		<button on:click={() => handleClick('pdf')}>Download generated PDF</button>
