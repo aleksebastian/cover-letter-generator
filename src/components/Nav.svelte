@@ -2,22 +2,25 @@
 	import Modal from './Modal.svelte';
 	import About from './About.svelte';
 	import Instructions from './Instructions.svelte';
+	import { scrollable } from '../store';
 
-	let aboutHidden: boolean = true;
-	let instructionsHidden: boolean = true;
+	let aboutHidden = true;
+	let instructionsHidden = true;
 
-	const handleClick = (section) => {
+	const handleClick = (section: string) => {
 		if (section === 'instructions') {
 			instructionsHidden = false;
 		}
 		if (section === 'about') {
 			aboutHidden = false;
 		}
+		scrollable.update((s) => false);
 	};
 
 	const closeModal = () => {
 		aboutHidden = true;
 		instructionsHidden = true;
+		scrollable.update((s) => true);
 	};
 </script>
 
@@ -29,10 +32,10 @@
 	</div>
 </nav>
 {#if !aboutHidden}
-	<Modal component={About} {closeModal} />
+	<Modal component={About} componentProp={null} {closeModal} />
 {/if}
 {#if !instructionsHidden}
-	<Modal component={Instructions} {closeModal} />
+	<Modal component={Instructions} componentProp={null} {closeModal} />
 {/if}
 
 <style>
