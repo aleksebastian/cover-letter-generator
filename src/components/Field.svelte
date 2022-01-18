@@ -48,7 +48,7 @@
 		background-color: #393e46;
 		display: flex;
 		border-radius: 20px;
-		margin: 0.6rem 0;
+		margin: 0.8rem 0;
 		display: grid;
 	}
 
@@ -64,6 +64,6 @@
 	}
 
 	.input {
-		padding: 1rem;
+		padding: 0.8rem 1.2rem;
 	}
 </style>

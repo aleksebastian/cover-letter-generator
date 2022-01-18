@@ -26,10 +26,10 @@
 
 <div class="container">
 	<div class="main">
-		<div class="header">
-			<h2 on:click={handleClick} class="section-text">Cover letters</h2>
+		<div class="header" on:click={handleClick}>
+			<h2 class="section-text">Cover letters</h2>
 			<div class="arrow-container">
-				<span on:click={handleClick} class="arrow" style="transform: rotateZ({transform})" />
+				<span class="arrow" style="transform: rotateZ({transform})" />
 			</div>
 		</div>
 		{#if !hidden}
@@ -47,7 +47,7 @@
 	.main {
 		display: flex;
 		flex-direction: column;
-		padding: 0 1rem 1rem 1rem;
+		padding: 0 1rem 0.5rem 1rem;
 		background-color: #222831;
 		border-radius: 20px;
 		color: white;
@@ -57,11 +57,11 @@
 	.header {
 		display: flex;
 		justify-content: space-between;
+		cursor: pointer;
 	}
 
 	.section-text {
 		padding: 1rem;
-		cursor: pointer;
 	}
 
 	.arrow-container {
@@ -75,7 +75,6 @@
 		height: 15px;
 		border-top: 3px solid white;
 		border-right: 3px solid white;
-		cursor: pointer;
 		transition: all 300ms;
 	}
 

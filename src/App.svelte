@@ -38,7 +38,7 @@
 		grid-column-end: 9;
 		display: flex;
 		flex-direction: column;
-		gap: 2rem;
+		gap: 1rem;
 	}
 
 	@media screen and (max-width: 1024px) {
