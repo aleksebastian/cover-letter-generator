@@ -17,8 +17,8 @@
 		>.
 	</p>
 	<p class="text">
-		Interested in hiring me to build some kick-ass features for your company? Get in touch and check
-		out my other skills by clicking <a
+		Interested in hiring me to build awesome features for your company? Get in touch and check out
+		my other skills by clicking <a
 			href="https://aleksebastian.dev/contact"
 			target="_blank"
 			rel="“noopener”">here</a

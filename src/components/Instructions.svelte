@@ -2,9 +2,7 @@
 <ol>
 	<li>
 		Type or paste your letter text into the text editor, wrapping the words you want to replace in
-		curly braces. <p>
-			E.g. I am thrilled at the prospect of being a {`{role name}`} at {`{company name}`}.
-		</p>
+		curly braces. E.g. I am thrilled at the prospect of being a {`{role name}`} at {`{company name}`}.
 	</li>
 	<li>
 		Type the replacement word in the textbox that appears under each word under Fields to replace.
